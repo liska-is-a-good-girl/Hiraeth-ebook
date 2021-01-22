@@ -1,0 +1,16 @@
+{
+  "name": "hiraeth-ebook",
+  "version": "1.0.0",
+  "description": "automatic ebook generator for the hireaeth erotic novel on 7chan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "got": "^11.8.1",
+    "jsdom": "^16.4.0",
+    "node-calibre": "^2.1.1"
+  }
+}

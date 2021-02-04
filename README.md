@@ -1,5 +1,5 @@
 # Hiraeth-ebook
-Automatic ebook generator for the Hireaeth erotic novel on 7chan.
+Automatic ebook generator for the [Hireaeth erotic novel](https://7chan.org/elit/res/26149.html) on 7chan.
 
 If you just want the ebook, you can download the last generated mobi (kindle) file [here](https://github.com/liska-is-a-good-girl/Hiraeth-ebook/raw/master/output/Hiraeth.mobi). (Up to date as of 01/21/2021).
 

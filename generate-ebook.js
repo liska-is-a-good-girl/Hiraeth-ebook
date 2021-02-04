@@ -11,7 +11,7 @@ const authorTrip = "!T1tXaJv9os";
 const useUnofficialTitles = true;
 
 console.log(`Downloading ${threadURL}...`);
-got(threadURL).then(response => {
+got(threadURL).then(async response => {
     console.log("Processing response...");
     //create the JSDOM object; this part takes a moment
     const document = (new JSDOM(response.body)).window.document;
@@ -38,7 +38,7 @@ got(threadURL).then(response => {
     //Lay out full story html and join it to a string
     const fullStory = ["<h1>Hiraeth</h1>"];
     for (i = 0; i < chapters.length; i++) {
-        const title = useUnofficialTitles ? 
+        const title = useUnofficialTitles  && titles[i+1] ? 
             `Chapter ${i+1}: ${titles[i+1]}` :
             `Chapter ${i+1}`
         fullStory.push(`\n<div class="chapter"><h2>${title}</h2>`);
@@ -54,11 +54,30 @@ got(threadURL).then(response => {
     //Creating ebook
     console.log("Creating ebook with Calibre at ./output/Hiraeth.mobi");
     const calibre = new calibre_lib.Calibre();
-    calibre.ebookConvert("./output/Hiraeth.html", "mobi", {
+    await calibre.ebookConvert("./output/Hiraeth.html", "mobi", {
         "max-levels": 0
     }).then(()=>    
         console.log("done.")
-    )
+    ).catch(err => {
+        console.log(err);
+        console.warn("Error during ebook generation. If the file was not generated, " + 
+            "you may have to run the command manually:")
+        console.warn("ebook-convert ./output/Hiraeth.html ./output/Hiraeth.mobi")
+        console.warn("(or use calibre's gui)")
+    })
+
+    console.log("Creating ebook with Calibre at ./output/Hiraeth.epub");
+    await calibre.ebookConvert("./output/Hiraeth.html", "epub", {
+        "max-levels": 0
+    }).then(()=>    
+        console.log("done.")
+    ).catch(err => {
+        console.log(err);
+        console.warn("Error during ebook generation. If the file was not generated, " + 
+            "you may have to run the command manually:")
+        console.warn("ebook-convert ./output/Hiraeth.html ./output/Hiraeth.epub")
+        console.warn("(or use calibre's gui)")
+    })
 
     //Function to grab post from array by post id
     getID = id => posts.filter(p => p.id == id)[0];
